@@ -18,6 +18,8 @@ This is meant to ease use of templates for creating lists of similar elements.
 
 When cloning the template, any `id` attributes on radiobuttons or checkboxes are replaced along with their corresponding labels.
 To disable this behaviour, set `data.disable_random_radio = true` and `data.disable_random_checkbox = true` respectively, where `data` is the object passed as the `data` parameter.
+
+Parameter | Description
 ---|---
 `name`| A string specifying which template to use. Templates specify their name with the `data-tmpl-name` attribute.
 `data`| An object with values that will be inserted in the newly created fragment.
@@ -29,6 +31,8 @@ To disable this behaviour, set `data.disable_random_radio = true` and `data.disa
 TinyTemplate.fill(element, data)
 ```
 See below on defining where data is inserted.
+
+Parameter | Description
 ---|---
 `element`| The values in `data` will be inserted into the given `HTMLElement` and all it's children and descendants.
 `data`| An object with the values that will be inserted.
