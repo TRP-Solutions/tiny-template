@@ -1,9 +1,7 @@
 var TinyTemplate = (function(){
-	var transformations = {};
-
-	function fill_template(element, data){
+	function fill(element, data){
 		if(!element || !element.dataset) return;
-		data = data || [];
+		data = data || {};
 		function fill_element(inst){
 			inst = inst.split(':');
 			if(typeof data[inst[1]] != 'undefined'){
@@ -12,7 +10,7 @@ var TinyTemplate = (function(){
 				} else if(inst[0] == 'value'){
 					this.value =  data[inst[1]];
 				} else if(inst[0] == 'content'){
-					this.textContent = data[inst[1]] || "\xA0";
+					this.textContent = data[inst[1]];
 				} else if(inst[0] == 'src'){
 					this.src = data[inst[1]];
 				} else if(inst[0] == 'id'){
@@ -36,30 +34,10 @@ var TinyTemplate = (function(){
 	}
 
 	function clone_template(template, data){
-		if(typeof data == 'object'){
-			var keys = Object.keys(data);
-			for(var i = 0; i < keys.length; i++){
-				var key = keys[i].split(':');
-				if(key.length > 2 && key[1] == 'transform' && typeof transformations[key[2]] == 'function'){
-					data[key[0]] = transformations[key[2]](data[keys[i]], key);
-					delete data[keys[i]];
-				}
-			}
-		}
 		var content = template.content ? template.content : template;
 		var node = content.firstElementChild ? content.firstElementChild : content.firstChild;
 		var clone = document.importNode(node, true);
-		fill_template(clone, data);
-		if(data && data.update_radio_id){
-			var radios = clone.querySelectorAll('input[type=radio]');
-			for(var i = 0; i < radios.length; i++){
-				var name = radios[i].name;
-				var label = clone.querySelector('label[for="'+radios[i].id+'"]');
-				var newid = name+':'+radios[i].value;
-				label.setAttribute('for', newid);
-				radios[i].id = newid;
-			}
-		}
+		fill(clone, data);
 		if(!(data && data.disable_random_radio)){
 			var radios = clone.querySelectorAll('input[type=radio]');
 			if(radios.length > 0){
@@ -73,7 +51,6 @@ var TinyTemplate = (function(){
 						labels[j].setAttribute('for', newid);
 					}
 					radios[i].id = newid;
-					radios[i].name = converter[name];
 				}
 			}
 		}
@@ -95,19 +72,15 @@ var TinyTemplate = (function(){
 		return clone;
 	}
 
-	function activate_template(id, data, elem, do_not_insert){
-		if(!id) return;
-		data = data || [];
+	function activate(name, data, elem, do_not_insert){
+		if(!name) return;
+		data = data || {};
 		elem = elem || document;
-		var template = elem.querySelector('template[data-tmpl-name="'+id+'"]');
+		var template = elem.querySelector('template[data-tmpl-name="'+name+'"]');
 		if(!template) return;
 		var clone = clone_template(template, data);
 		if(!do_not_insert) template.parentNode.insertBefore(clone, template);
 		return clone;
-	}
-
-	function reset(){
-		transformations = {}
 	}
 
 	function random_string(){
@@ -115,9 +88,7 @@ var TinyTemplate = (function(){
 	}
 
 	return {
-		'activate': activate_template,
-		'fill': fill_template,
-		'register_transformation': register_transformation,
-		'reset': reset
+		'activate': activate,
+		'fill': fill
 	}
 })()
