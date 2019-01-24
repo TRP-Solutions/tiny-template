@@ -51,6 +51,7 @@ var TinyTemplate = (function(){
 						labels[j].setAttribute('for', newid);
 					}
 					radios[i].id = newid;
+					radios[i].name = converter[name];
 				}
 			}
 		}
@@ -84,7 +85,7 @@ var TinyTemplate = (function(){
 	}
 
 	function random_string(){
-		Math.random().toString(36).substr(2, 5);
+		return Math.random().toString(36).substr(2, 5);
 	}
 
 	return {
