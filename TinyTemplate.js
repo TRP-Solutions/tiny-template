@@ -15,7 +15,7 @@ var TinyTemplate = (function(){
 					this.src = data[inst[1]];
 				} else if(inst[0] == 'id'){
 					this.id = data[inst[1]];
-				} else if(inst[0] == 'checked' && data[inst[1]]){
+				} else if(inst[0] == 'checked'){
 					this.checked = data[inst[1]];
 				} else if(inst[0] == 'radio'){
 					this.checked = data[inst[1]] == this.value;
