@@ -17,8 +17,8 @@ var TinyTemplate = (function(){
 					this.id = data[inst[1]];
 				} else if(inst[0] == 'checked' && data[inst[1]]){
 					this.checked = data[inst[1]];
-				} else if(inst[0] == 'radio' && data[inst[1]] == this.value){
-					this.checked = true;
+				} else if(inst[0] == 'radio'){
+					this.checked = data[inst[1]] == this.value;
 				} else if(inst[0] == 'class'){
 					var className = (this.dataset.tmplClassPrefix ? this.dataset.tmplClassPrefix + ' ' : '') + data[inst[1]];
 					if(this.className.baseVal) this.className.baseVal = className;

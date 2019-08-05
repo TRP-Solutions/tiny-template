@@ -52,7 +52,7 @@ Target  |Result
 content | The value is inserted as text, using `.textContent`
 value   | The value is assigned to the `value` attribute used by `<input>` elements.
 checked | The value is assigned to the `checked` attribute used by `<input type=checkbox>` elements.
-radio   | The `checked` attribute used by `<input type=radio>` is set to `true` if the value is equal to the `value` attribute.
+radio   | The `checked` attribute used by `<input type=radio>` is set to `true` if the value is soft equal to the `value` attribute, otherwise it is set to `false`.
 id      | The value is set as the id of the element.
 class   | The value is set as the class of the element. If `data-tmpl-class-prefix` exists, then it is prepended to the value before setting the class.
 src     | The value is assigned to the `src` attribute used by `<img>` and other elements.
