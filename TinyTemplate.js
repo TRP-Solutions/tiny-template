@@ -1,3 +1,7 @@
+/*
+TinyTemplate is licensed under the Apache License 2.0 license
+https://github.com/TRP-Solutions/tiny-template/blob/master/LICENSE
+*/
 var TinyTemplate = (function(){
 	function fill(element, data){
 		if(!element || !element.dataset) return;
