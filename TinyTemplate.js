@@ -76,6 +76,19 @@ var TinyTemplate = (function(){
 				}
 			}
 		}
+		if(data && data.randomize_name_index){
+			var inputs = clone.querySelectorAll('[name$="]"]');
+			if(inputs.length > 0){
+				var converter = {};
+				var regexp = new RegExp('([^[]+)\\[([^\\]]+)\]');
+				for(var i = 0; i < inputs.length; i++){
+					var name = inputs[i].name.match(regexp);
+					var name_index = name[2];
+					if(!converter[name_index]) converter[name_index] = 'rni_'+random_string(7);
+					inputs[i].name = name[1]+'['+converter[name_index]+']';
+				}
+			}
+		}
 		return clone;
 	}
 
